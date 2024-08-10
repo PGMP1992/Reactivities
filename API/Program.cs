@@ -21,7 +21,7 @@ builder.Services.AddCors(opt => {
     });
 });
 
-// Add Mediator
+// Adding Mediator in API => Application
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(typeof(List.Handler).Assembly));
 
 
