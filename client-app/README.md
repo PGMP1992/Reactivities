@@ -18,6 +18,7 @@ Packages:
     - Sematinc - UI
     - Axios
     - MediatR
+    - AutoMapper
 
 
 # React + TypeScript + Vite
