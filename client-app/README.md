@@ -19,6 +19,7 @@ Packages:
     - Axios
     - MediatR
     - AutoMapper
+    - MobX
 
 
 # React + TypeScript + Vite
