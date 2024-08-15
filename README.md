@@ -20,6 +20,8 @@ Packages:
     - Axios
     - MediatR
     - AutoMapper
+    - FluentValidation
+
 
 
 # React + TypeScript + Vite
