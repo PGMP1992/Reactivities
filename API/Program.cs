@@ -14,7 +14,7 @@ builder.Services.AddApplicationServices(builder.Configuration);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-app.UseMiddleware<ExceptionMiddleware>(); // Created this Exception Handler
+//app.UseMiddleware<ExceptionMiddleware>(); // Created this Exception Handler
 
 if (app.Environment.IsDevelopment())
 {
