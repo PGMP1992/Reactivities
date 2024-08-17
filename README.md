@@ -21,6 +21,7 @@ Packages:
     - MediatR
     - AutoMapper
     - FluentValidation
+    - Formik - Yup
 
 
 
