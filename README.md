@@ -3,13 +3,18 @@ Reactivities
 Using :
 
     Clean Architeture:
+
     - Domain
-        :Sqlite
-    - Persistense
+        : Models 
+    - Persistense - Db Connection/ DTO 
+        : C#
+        : SqLite
     - Application
-        : C# 
+        : C# Http Request/ Response 
     - API 
         : C#
+    - Client-app 
+        - React, Typesctipt, Vite
 
 Packages: 
 
@@ -22,8 +27,6 @@ Packages:
     - AutoMapper
     - FluentValidation
     - Formik - Yup
-
-
 
 # React + TypeScript + Vite
 
