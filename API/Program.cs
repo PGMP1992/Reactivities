@@ -1,7 +1,9 @@
 using API.Extensions;
 using API.Middleware;
 using Domain;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Persistence;
 
@@ -9,7 +11,14 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
+// Sets up required authentication for app at controller level
+builder.Services.AddControllers(option =>
+{
+    var policy = new AuthorizationPolicyBuilder()
+        .RequireAuthenticatedUser().Build();
+    option.Filters.Add(new AuthorizeFilter (policy));
+});
+
 // Create class below containing all Services.
 builder.Services.AddApplicationServices(builder.Configuration);
 builder.Services.AddIdentityServices( builder.Configuration);
@@ -25,8 +34,9 @@ if (app.Environment.IsDevelopment())
 }
 
 //app.UseHttpsRedirection();
-app.UseCors("CorsPolicy"); 
+app.UseCors("CorsPolicy");
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
