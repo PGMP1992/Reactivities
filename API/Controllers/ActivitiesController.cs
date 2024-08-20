@@ -1,12 +1,11 @@
 using Application.Activities;
 using Domain;
-using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.ComponentModel.DataAnnotations;
 
 namespace API.Controllers
 {
+    [AllowAnonymous] // Allow full access to anyone
     public class ActivitiesController : BaseApiController
     {
         [HttpGet] //api/activities
