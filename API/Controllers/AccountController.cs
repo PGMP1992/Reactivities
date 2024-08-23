@@ -5,7 +5,6 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
-using System.ComponentModel;
 using System.Security.Claims;
 
 namespace API.Controllers
@@ -26,13 +25,13 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("login")]
-        public async Task<ActionResult<UserDto>> Login(LoginDto logindto)
+        public async Task<ActionResult<UserDto>> Login(LoginDto loginDto)
         {
-            var user = await _userManager.FindByEmailAsync(logindto.Email);
+            var user = await _userManager.FindByEmailAsync(loginDto.Email);
             if (user == null) return Unauthorized();
-            
-            var result = await _userManager.CheckPasswordAsync(user, logindto.Password);
-            if(result )
+
+            var result = await _userManager.CheckPasswordAsync(user, loginDto.Password);
+            if (result)
             {
                 return CreateUserObj(user);
             }
@@ -42,15 +41,15 @@ namespace API.Controllers
 
         [AllowAnonymous]
         [HttpPost("register")]
-        public async Task<ActionResult<UserDto>> Register(RegisterDto registeDto)
+        public async Task<ActionResult<UserDto>> Register(RegisterDto registerDto)
         {
-            if (await _userManager.Users.AnyAsync(x => x.UserName == registeDto.UserName))
+            if (await _userManager.Users.AnyAsync(x => x.UserName == registerDto.UserName))
             {
                 ModelState.AddModelError("username", "UserName is already taken");
                 return ValidationProblem();
             }
 
-            if (await _userManager.Users.AnyAsync(x => x.Email == registeDto.Email))
+            if (await _userManager.Users.AnyAsync(x => x.Email == registerDto.Email))
             {
                 ModelState.AddModelError("email", "Email is already taken");
                 return ValidationProblem();
@@ -58,12 +57,12 @@ namespace API.Controllers
 
             var user = new AppUser
             {
-                DisplayName = registeDto.DisplayName,
-                Email = registeDto.Email,
-                UserName = registeDto.UserName
+                DisplayName = registerDto.DisplayName,
+                Email = registerDto.Email,
+                UserName = registerDto.UserName
             };
 
-            var result = await _userManager.CreateAsync(user, registeDto.Password);
+            var result = await _userManager.CreateAsync(user, registerDto.Password);
 
             if (result.Succeeded)
             {
@@ -73,7 +72,7 @@ namespace API.Controllers
             return BadRequest(result.Errors);
         }
 
-        
+
         private ActionResult<UserDto> CreateUserObj(AppUser user)
         {
             return new UserDto
@@ -92,7 +91,6 @@ namespace API.Controllers
             var user = await _userManager.FindByEmailAsync(User.FindFirstValue(ClaimTypes.Email));
 
             return CreateUserObj(user);
-
         }
 
     }
